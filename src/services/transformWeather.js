@@ -26,7 +26,7 @@ const getWeatherState = weather => {
 }
 
 const getTemp = kelvin => {
-    return Number(convert(kelvin).from("K").to("C").toFixed(2));
+    return Number(convert(kelvin).from("K").to("C").toFixed(0));
 }
 
 const transformWeather = weather_data => {
