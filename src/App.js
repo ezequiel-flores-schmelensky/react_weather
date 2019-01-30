@@ -4,6 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
 import {Grid, Col, Row} from 'react-flexbox-grid';
+import {createStore} from 'redux';
 import LocationList from './components/LocationList';
 import ForecastExtended from './components/ForecastExtended';
 import './App.css';
@@ -17,6 +18,9 @@ const cities = [
   'Lima,pe',
 ];
 
+const store = createStore(() => {}, 
+window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());//Para que funcione la extensión
+
 class App extends Component {
   
   constructor() {
@@ -27,6 +31,8 @@ class App extends Component {
   handleSelectionLocation = city => {
     this.setState({city});
     console.log(`handleSelectionLocation ${city}`);
+    const action = {type: 'setCity', value: city};
+    store.dispatch(action);
   }
 
   render() {
