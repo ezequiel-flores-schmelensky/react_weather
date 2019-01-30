@@ -5,6 +5,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
 import {Grid, Col, Row} from 'react-flexbox-grid';
+import PropTypes from 'prop-types';
 import LocationList from './components/LocationList';
 import ForecastExtended from './components/ForecastExtended';
 import { setCity } from './actions';
@@ -64,9 +65,16 @@ class App extends Component {
   }
 }
 
+App.propTypes = {
+  setCity:PropTypes.func.isRequired,
+}
+
+//Inyecta propiedades al componente 
 const mapDispatchToPropsActions = dispatch => ({
+  //Dispatch gracias a que configuramos provider 
   setCity: value => dispatch(setCity(value))
 });
-const AppConnected = connect(null, mapDispatchToPropsActions)(App); //componentConnected
 
-export default AppConnected;
+export default connect(null, mapDispatchToPropsActions)(App); //componentConnected
+//Dentro de connect se llama mapDispatchToPropsAction y se le coloca dispatch //dispatchToProps
+
