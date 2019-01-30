@@ -2,23 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ForecastItem from './ForecastItem';
 import './styles.css';
-import WeatherData from './WeatherLocation/WeatherData';
 import transformForecast from './../services/transformForecast';
 
-/*const days = [
-    'Lunes',
-    'Martes',
-    'Miercoles',
-    'Jueves',
-    'Viernes',
-]
 
-const data = {
-    temperature: 10,
-    humidity: 10,
-    weatherState: 'normal',
-    wind: 'normal',
-}*/
 export const api_key = "f99bbd9e4959b513e9bd0d7f7356b38d";
 export const url = "http://api.openweathermap.org/data/2.5/forecast";
 
@@ -30,8 +16,18 @@ class ForecastExtended extends Component {
     }
 
     componentDidMount() {
-        //fetch or axios
-        const url_forecast = `${url}?q=${this.props.city}&appid=${api_key}`;
+        this.updateCity(this.props.city);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.city !== this.props.city) {
+            this.setState({forecastData:null});
+            this.updateCity(nextProps.city);
+        }
+    }
+    
+    updateCity = city => {
+        const url_forecast = `${url}?q=${city}&appid=${api_key}`;
         fetch(url_forecast).then(
             data => (data.json())
         ).then(
@@ -44,9 +40,14 @@ class ForecastExtended extends Component {
         );
     }
 
-    renderForecastItemDays() {
-        return "Render Items"
-        //return days.map(day => (<ForecastItem weekDay={day} hour={10} data={data}></ForecastItem>));
+    renderForecastItemDays(forecastData) {
+        return forecastData.map(forecast => (
+            <ForecastItem 
+                key={`${forecast.weekDay}${forecast.hour}`}
+                weekDay={forecast.weekDay} 
+                hour={forecast.hour} 
+                data={forecast.data}>
+            </ForecastItem>));
     }
     
     renderProgress = () => {
@@ -60,7 +61,7 @@ class ForecastExtended extends Component {
         <div>
             <h2 className='forecast-title'>Pronóstico Extendido para {city}</h2>
             {forecastData ? 
-                this.renderForecastItemDays() :
+                this.renderForecastItemDays(forecastData) :
                 this.renderProgress()}
         </div>);
     }
