@@ -36,7 +36,7 @@ class WeatherLocation extends Component {
             console.log("Resultado del handleUpdateClick");
             const newWeather = transformWeather(data);
             console.log(newWeather);
-            debugger;
+            //debugger;
             this.setState({
                 data: newWeather
             });
