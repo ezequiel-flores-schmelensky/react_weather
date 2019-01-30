@@ -7,6 +7,7 @@ import {Grid, Col, Row} from 'react-flexbox-grid';
 import {createStore} from 'redux';
 import LocationList from './components/LocationList';
 import ForecastExtended from './components/ForecastExtended';
+import { setCity } from './actions';
 import './App.css';
 
 const cities = [
@@ -31,8 +32,7 @@ class App extends Component {
   handleSelectionLocation = city => {
     this.setState({city});
     console.log(`handleSelectionLocation ${city}`);
-    const action = {type: 'setCity', value: city};
-    store.dispatch(action);
+    store.dispatch(setCity(city));
   }
 
   render() {
