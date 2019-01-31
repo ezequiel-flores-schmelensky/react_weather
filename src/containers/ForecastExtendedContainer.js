@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+import { getForecastDataFromCities,getCity } from './../reducers'
 import ForecastExtended from './../components/ForecastExtended';
 
 class ForecastExtendedContainer extends Component {
@@ -18,5 +19,5 @@ ForecastExtendedContainer.propTypes = {
     forecastData: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = ({city, cities}) => ({city, forecastData: cities[city] && cities[city].forecastData}); //sin destructuring sería igual a: state => ({city: state.city})
+const mapStateToProps = state => ({city: getCity(state), forecastData: getForecastDataFromCities(state)}); //sin destructuring sería igual a: state => ({city: state.city})
 export default connect(mapStateToProps, null)(ForecastExtendedContainer);
