@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setSelectedCity, setWeather } from './../actions';
-import { getWeatherCities } from './../components/LocationList';
+import { getWeatherCities } from './../reducers';
 import LocationList from './../components/LocationList';
 
 class LocationListContainer extends Component {
