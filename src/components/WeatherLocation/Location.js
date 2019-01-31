@@ -3,10 +3,6 @@ import PropTypes from 'prop-types';
 import './styles.css';
 
 const Location = ({city}) => (
-    //console.log(props);
-    //debugger;
-    //const city = props.city;
-    //return (<div><h1>{city}</h1></div>);
     <div className="locationCont">
         <h1>
             {city}
